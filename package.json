@@ -13,6 +13,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
-    "vite": "^4.0.0"
-  }
+    "vite": "^4.5.3"
+  },
+  "description": "Ce projet est un exemple de frontend vue.js sur le backend \"comptoirs\" [déployé sur heroku](https://springajax.herokuapp.com/).",
+  "main": "vite.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
