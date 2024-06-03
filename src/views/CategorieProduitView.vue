@@ -1,13 +1,27 @@
 <template>
-    <main>
-      <h1>Les catégories de produits</h1>
+<main>
+    <h1>Les catégories de produits</h1>
+    <div>
+      <select v-model="data.selectedCategorie" @change="handleChange">
+        <option disabled value="">Veuillez choisir une catégorie</option>
+        <option v-for="cate in data.listeCategories" :value="cate.code">{{ cate.libelle }}</option>
+      </select>
+      <input v-model="searchTerm" placeholder="Search for a product" />
       <div>
-        <select v-model="data.selectedCategorie" @change="handleChange">
-          <option disabled value="">Veuillez choisir une catégorie</option>
-          <option v-for="cate in data.listeCategories" :value="cate.code">{{ cate.libelle }}</option>
-        </select>
-        <input v-model="searchTerm" placeholder="Search for a product" />
+        <label>
+          Min Price:
+          <input type="number" v-model.number="priceRange.min" />
+        </label>
+        <label>
+          Max Price:
+          <input type="number" v-model.number="priceRange.max" />
+        </label>
+        <button @click="filterByPrice">Filter by Price</button>
+        <button @click="() => sortByPrice(true)">Sort by Price (Ascending)</button>
+        <button @click="() => sortByPrice(false)">Sort by Price (Descending)</button>
+        <button @click="resetFilters">Reset Filters</button>
       </div>
+    </div>
       <div>
         <table>
           <caption>Les produits</caption>
@@ -88,6 +102,42 @@
     chargeProduitsParCate(data.selectedCategorie);
     chargeCategories()
   });
+  let priceRange = reactive({ min: 0, max: Infinity });
+
+function filterByPrice() {
+  data.listeProduitsCate = data.listeProduitsCate.filter(
+    (produit) => produit.prixUnitaire >= priceRange.min && produit.prixUnitaire <= priceRange.max
+  );
+}
+
+function sortByPrice(ascending = true) {
+  data.listeProduitsCate.sort((a, b) => {
+    if (ascending) {
+      return a.prixUnitaire - b.prixUnitaire;
+    } else {
+      return b.prixUnitaire - a.prixUnitaire;
+    }
+  });
+}
+
+function resetFilters() {
+  chargeProduitsParCate();
+  priceRange.min = 0;
+  priceRange.max = Infinity;
+  return {
+  data,
+  isLoading,
+  searchTerm,
+  filteredProducts,
+  handleChange,
+  priceRange,
+  filterByPrice,
+  sortByPrice,
+  resetFilters
+}
+};
+
+
 </script>
 
 
