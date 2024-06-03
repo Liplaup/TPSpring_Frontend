@@ -8,7 +8,7 @@
                     <th>Prix</th>
                     <th>Stock</th>
                     <th>Commandés</th>
-                </tr>
+                </tr>     
                 <!-- Si le tableau des produits est vide -->
                 <tr v-if="data.listeProduits.length === 0">
                     <td colspan="4">Veuillez patienter, chargement des produits...</td>
@@ -105,7 +105,7 @@ table {
 }
 
 .pagination button {
-  background-color: #4CAF50;
+  background-color: #353ad9;
   color: white;
   border: none;
   border-radius: 4px;
@@ -116,7 +116,7 @@ table {
 }
 
 .pagination button:hover {
-  background-color: #45a049;
+  background-color: #a21c8e;
 }
 
 .pagination button:disabled {
